@@ -1,0 +1,23 @@
+.custom-navbar{
+  background-color: #d79b9b;
+  padding:10px;
+  display:flex;
+  align-items: center;
+}
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+}
+
+.navbar a {
+  color: white;
+  margin-right: 0 15px;
+  text-decoration: none;
+}
+
+.navbar a.active {
+  font-weight: bold;
+  border-bottom: 2px solid yellow;
+}
+

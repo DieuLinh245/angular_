@@ -1,0 +1,48 @@
+<div class="todo-container">
+
+  <hr />
+  <h2>Tìm kiếm & Lọc</h2>
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Tìm theo tiêu đề..."
+  />
+
+  <select [(ngModel)]="filterStatus">
+    <option value="all">Tất cả</option>
+    <option value="in-progress">Đang làm</option>
+    <option value="completed">Hoàn thành</option>
+  </select>
+
+  <hr />
+  <h2>Danh sách công việc</h2>
+  <div *ngFor="let todo of filteredTodos; let i = index" [ngClass]="['todo-card', todo.status === 'completed' ? 'completed' : '']">
+    <ng-container *ngIf="editingIndex !== i">
+      <h3>{{ todo.title }}</h3>
+      <p>{{ todo.description }}</p>
+      <p>Deadline: {{ todo.deadline }}</p>
+      <p>
+        <span [ngClass]="todo.status === 'completed' ? 'text-green' : 'text-blue'">
+          Trạng thái: {{ todo.status === 'completed' ? 'Hoàn thành' : 'Đang làm' }}
+        </span>
+      </p>
+
+      <button (click)="markAsCompleted(i)">Hoàn thành</button>
+      <button (click)="startEdit(i)"> Sửa</button>
+      <button (click)="deleteTodo(i)"> Xóa</button>
+    </ng-container>
+
+    <ng-container *ngIf="editingIndex === i">
+      <input [(ngModel)]="todo.title" placeholder="Tiêu đề" /><br />
+      <textarea [(ngModel)]="todo.description" placeholder="Mô tả"></textarea><br />
+      <input type="date" [(ngModel)]="todo.deadline" /><br />
+      <select [(ngModel)]="todo.status">
+        <option value="in-progress">Đang làm</option>
+        <option value="completed">Hoàn thành</option>
+      </select><br />
+
+      <button (click)="saveEdit(i)">Lưu</button>
+      <button (click)="cancelEdit()">Hủy</button>
+    </ng-container>
+  </div>
+</div>
